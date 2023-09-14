@@ -1,0 +1,185 @@
+Процесс адаптации. Проект Alefowl.com: библиотека билингвальных книг.
+
+Доступ к сервисам: 
+1. Продакт овнер организует выдачу доступа стажеру в trello, gitHub, фронту
+2. Стажер должен войти во все системы, при необходимости зарегистрироваться в них 
+
+Для работы в проекте стажеру нужно скачать и установить следующие программы:
+1. Postgres + pgAdmin 
+2. Postman 
+3. Node.js
+4. Java
+5. Vasual Studio Code 
+
+Создание локальной БД 
+1. Создать в pgAdmin новую БД под названием kapinuss, без пароля (эта БД будет иметь такую же структуру, как и удаленная БД);
+2. Создать в БД 10 таблиц (данные для таблиц см. ниже)
+
+Данные по табличкам со всеми связями: 
+create table Languages (
+id smallint primary key,
+self_name varchar,
+english varchar,
+russian varchar,
+german varchar,
+french varchar,
+spanish varchar,
+italian varchar);
+
+create table Creators (
+id integer primary key,
+english_name varchar,
+russian_name varchar,
+german_name varchar,
+french_name varchar,
+original_language smallint references Languages(id),
+birth_date smallint,
+death_date smallint,
+is_author boolean,
+is_translator boolean,
+owner integer);
+
+create table Metabooks (
+id integer primary key,
+author integer references Creators(id),
+language smallint references Languages(id),
+title varchar,
+create_date smallint,
+size integer,
+owner integer);
+
+create table Books (
+id integer primary key,
+metabook integer references Metabooks(id),
+language smallint references Languages(id),
+title varchar,
+author varchar,
+translation_date smallint,
+translator integer references Creators(id),
+is_ready boolean,
+is_visible boolean,
+owner integer);
+
+create table Chapters (
+book integer references books(id),
+id integer,
+title varchar,
+head integer,
+txt varchar,
+primary key(book, id));
+
+create table tags (
+id serial primary key,
+owners_title varchar,
+english_title varchar,
+russian_title varchar,
+german_title varchar,
+owners_description varchar,
+english_description varchar,
+russian_description varchar,
+german_description varchar,
+colour varchar,
+owner integer);
+
+create table tag_chapters (
+id serial primary key,
+tag integer references tags(id) on delete cascade,
+book integer,
+metabook integer,
+chapter integer,
+owner integer);
+
+create table notes (
+id integer,
+book integer references books(id) on delete cascade,
+chapter integer,
+txt varchar,
+primary key(book, id));
+
+create table uploads (
+id serial primary key,
+book int,
+owner int,
+txt varchar,
+result varchar,
+add_time timestamp,
+req_size integer,
+str_size integer);
+
+create table users (
+id serial primary key,
+login varchar,
+password varchar,
+firstname varchar,
+surname varchar,
+email varchar,
+tg varchar,
+favBooks varchar,
+origlang varchar,
+langs varchar,
+location varchar,
+token varchar,
+role varchar,
+ts varchar);
+
+Чтобы наглядно увидеть связи всех таблиц, перейдите в GitHub, в закрытый репозиторий lib doc, database, diagram.pdf
+
+Далее нужно заполнить таблицы данными, с которыми вы будете работать локально
+
+Заполнить таблицы можно 2мя способами, попробуйте оба: 
+1. Через запросы в Postman
+2. Через sql запросы в самом pgAdmin
+
+Чтобы заполнить таблицы через SQL запрос:
+1. Вам нужно открыть query tool
+2. Ввести запрос Insert Into (название таблицы, ее атрибуты), valuel (данные)
+3. Нажать Execute
+4. Если запрос написан верно, то данные добавятся в таблицу и вы увидите подобное сообщение - Successfully run. Total query runtime: 246 msec. 3 rows affected.
+
+Чтобы делать запросы через постман, вам необходимо: 
+1. Скачать актуальную версию файла local.jar ( попросите ее у продакт овнера)
+2. Открыть с помощью winrar или zip Extractor или похожих программ
+В нем найти файл Local.conf и открыть его с помощью текстового редактора
+Далее проверьте номер порта (должен быть 8080) а так же вот эту строку:
+db = { url = "jdbc:postgresql://localhost:5432/kapinuss", login = "postgres", password = "" }
+Kapinuss - это название вашей БД ( если вы ее назвали по другому тут можно написать актуальное для вас название)
+postgres- имя владельца БД оно такое по умолчанию стоит , так что если вы ничего не меняли, то тут все верно
+password - тут впишите пароль, который вы указывали при создании БД, если не указали, то оставьте поле пустым
+Сохраните изменения и выходите  
+Обязательно перепроверьте, сохранились ли данные, иногда некоторые архиваторы не хотят вносить изменения, тогда попробуйте другой архиватор
+3. Откройте консоль или терминал и убедитесь, что вы установили java
+Напишите команду java -version (должно показать версию джавы)
+4.Далее нужно указать путь до вашего файла
+Изначально путь показывается как C:\Users\"имя пользователя" (для виндовс), /Users/имяпользователя/ (для Mac)
+вы можете либо поместить ваш файл в папку пользователя, либо поменять путь командой "cd"
+
+Должно будет получиться что то вроде 
+"C:\Users\"имя пользователя" cd C:\Users\"имя пользователя"\project" 
+нажимаете  Enter и ваш изначальный пусть изменится из 
+====>C:\Users\"имя пользователя" в такой C:\Users\"имя пользователя"\project
+
+Далее когда ваша консоль в нужном месте нужно просто прописать команду "java -jar local2.jar "( проверьте название файла и при необходимости исправьте на актуальное)
+Если все сделано верно, вы увидите нечто похожее:
+[pool-1-thread-1] INFO  c.z.h.HikariDataSource - HikariPool-1 - Starting...
+[pool-1-thread-1] INFO  c.z.h.HikariDataSource - HikariPool-1 - Start completed.
+[io-compute-11] INFO  o.h.e.s.EmberServerBuilderCompanionPlatform - Ember-Server service bound to address: [::]:8080
+
+Далее нужно будет открыть постман и сделать POST запросы
+https://github.com/stakap/lib-doc/tree/master/Backend/test%20docs/Тест-Кейсы
+По ссылке выше находится наша документация по Api
+Выберете POST запросы на добавление данных в таблице и сделайте подобные со своими значениями
+
+Чтобы развернуть фронт, следуйте инструкции в файле README в репозитории lib doc
+
+После того, как развернули фронт, ознакомьтесь со всей документацией по проекту, которая лежит в репозитории в папке lib doc
+
+Далее ознакомьтесь с задачами на спринт в трелло 
+
+Когда будете готовы включиться в работу, напишите продакт овнеру и получите задачу 
+
+По любым вопросам можете обращаться к продакт овнеру 
+
+Удачи! 
+
+
+
