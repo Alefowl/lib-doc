@@ -1,0 +1,107 @@
+Данные по табличкам со всеми связями: 
+
+create table Languages (
+id smallint primary key,
+self_name varchar,
+english varchar,
+russian varchar,
+german varchar,
+french varchar,
+spanish varchar,
+italian varchar);
+
+create table Creators (
+id integer primary key,
+english_name varchar,
+russian_name varchar,
+german_name varchar,
+french_name varchar,
+original_language smallint references Languages(id),
+birth_date smallint,
+death_date smallint,
+is_author boolean,
+is_translator boolean,
+owner integer);
+
+create table Metabooks (
+id integer primary key,
+author integer references Creators(id),
+language smallint references Languages(id),
+title varchar,
+create_date smallint,
+size integer,
+owner integer);
+
+create table Books (
+id integer primary key,
+metabook integer references Metabooks(id),
+language smallint references Languages(id),
+title varchar,
+author varchar,
+translation_date smallint,
+translator integer references Creators(id),
+is_ready boolean,
+is_visible boolean,
+owner integer);
+
+create table Chapters (
+book integer references books(id),
+id integer,
+title varchar,
+head integer,
+txt varchar,
+primary key(book, id));
+
+create table tags (
+id serial primary key,
+owners_title varchar,
+english_title varchar,
+russian_title varchar,
+german_title varchar,
+owners_description varchar,
+english_description varchar,
+russian_description varchar,
+german_description varchar,
+colour varchar,
+owner integer);
+
+create table tag_chapters (
+id serial primary key,
+tag integer references tags(id) on delete cascade,
+book integer,
+metabook integer,
+chapter integer,
+owner integer);
+
+create table notes (
+id integer,
+book integer references books(id) on delete cascade,
+chapter integer,
+txt varchar,
+primary key(book, id));
+
+create table uploads (
+id serial primary key,
+book int,
+owner int,
+txt varchar,
+result varchar,
+add_time timestamp,
+req_size integer,
+str_size integer);
+
+create table users (
+id serial primary key,
+login varchar,
+password varchar,
+firstname varchar,
+surname varchar,
+email varchar,
+tg varchar,
+favBooks varchar,
+origlang varchar,
+langs varchar,
+location varchar,
+token varchar,
+role varchar,
+ts varchar);
