@@ -2,7 +2,7 @@ Team.
 Product-owner: Леонид;
 scrum-master: Stanislav;
 analysts: Леонид, Аделя, Анастасия;
-developers: Stanislav, Дарья П.;
+developers: Stanislav, Дарья П., Валентина Ф.;
 qa engineers: Даниил, Евгений, Александр, Евгений М., Дарья М., Александра, Татьяна, Анна.
 
 Repo owners:
