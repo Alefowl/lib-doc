@@ -97,8 +97,8 @@ Status code 500/   - ошибка сервера
 Body
     {
       "id": "1",
-      "a uthor": "1",
-      "languag": "1",
+      "author": "1",
+      "language": "1",
       "title": "Meta Book Title",
       "create_date": "2000",
       "size": "500",
