@@ -1,130 +1,140 @@
-Данные по табличкам со всеми связями: 
+Данные по табличкам со всеми связями:
 
-create table Languages (
-id smallint primary key,
-self_name varchar,
-english varchar,
-russian varchar,
-german varchar,
-french varchar,
-spanish varchar,
-italian varchar);
+create table languages (
+id_language smallint primary key,
+name_en varchar(255),
+name_ru varchar(255),
+name_de varchar(255),
+name_fr varchar(255),
+name_es varchar(255),
+name_it varchar(255)
+);
 
-create table Creators (
-id integer primary key,
-english_name varchar,
-russian_name varchar,
-german_name varchar,
-french_name varchar,
-original_language smallint references Languages(id),
+create table creators (
+id_creator integer primary key,
+name_en varchar(255),
+name_ru varchar(255),
+name_de varchar(255),
+name_fr varchar(255),
+id_language smallint references languages(id_language),
 birth_date smallint,
 death_date smallint,
-is_author boolean,
+is_creator boolean,
 is_translator boolean,
 owner integer,
-constraint unique_name_and_birth unique (english_name, birth_date));
+constraint unique_name_and_birth unique (name_en, birth_date)
+);
 
-create table Metabooks (
-id integer primary key,
-author integer references Creators(id),
-language smallint references Languages(id),
-title varchar,
+create table metabooks (
+id_metabook integer primary key,
+id_creator integer references creators(id_creator),
+id_language smallint references languages(id_language),
+title varchar(255),
 create_date smallint,
 size integer,
 owner integer,
-constraint unique_title_for_author unique (author, title));
+constraint unique_title_for_creator unique (id_creator, title)
+);
 
-create table Books (
-id integer primary key,
-metabook integer references Metabooks(id),
-language smallint references Languages(id),
-title varchar,
-author varchar,
+create table books (
+id_book integer primary key,
+id_metabook integer references metabooks(id_metabook),
+id_language smallint references languages(id_language),
+title varchar(255) unique,
+creator varchar(255),
 translation_date smallint,
-translator integer references Creators(id),
+id_translator integer references creators(id_creator),
 is_ready boolean,
 is_visible boolean,
 owner integer,
-is_deleted boolean default false);
+is_deleted boolean default false
+);
 
-create table Chapters (
-book integer references books(id),
-id integer,
-title varchar,
+create table chapters (
+id_chapter integer,
+id_book integer references books(id_book),
+title varchar(255),
 head integer,
-txt varchar,
-primary key(book, id));
+txt varchar(255),
+primary key(id_book, id_chapter)
+);
 
 create table tags (
-id serial primary key,
-owners_title varchar,
-english_title varchar,
-russian_title varchar,
-german_title varchar,
-owners_description varchar,
-english_description varchar,
-russian_description varchar,
-german_description varchar,
-colour varchar,
-owner integer);
+id_tag serial primary key,
+owners_title varchar(255),
+english_title varchar(255),
+russian_title varchar(255),
+german_title varchar(255),
+owners_description varchar(255),
+english_description varchar(255),
+russian_description varchar(255),
+german_description varchar(255),
+colour varchar(255),
+owner integer
+);
 
 create table tag_chapters (
-id serial primary key,
-tag integer references tags(id) on delete cascade,
-book integer,
-metabook integer,
-chapter integer,
-owner integer);
+id_tag_chapter serial primary key,
+id_tag integer references tags(id_tag) on delete cascade,
+id_book integer references books(id_book),
+id_metabook integer references metabooks(id_metabook),
+id_chapter integer references chapters(id_chapter),
+owner integer
+);
 
 create table notes (
-id integer,
-book integer references books(id) on delete cascade,
-chapter integer,
-txt varchar,
-primary key(book, id));
+id_note integer,
+id_book integer references books(id_book) on delete cascade,
+id_chapter integer references chapters(id_chapter),
+txt varchar(255),
+primary key(id_book, id_note)
+);
 
 create table uploads (
-id serial primary key,
-book int,
-owner int,
-txt varchar,
-result varchar,
-add_time timestamp,
+id_upload serial primary key,
+id_book integer references books(id_book),
+owner integer,
+txt varchar(255),
+result varchar(255),
+add_time timestamp default now(),
 req_size integer,
-str_size integer);
+str_size integer
+);
 
 create table users (
-id serial primary key,
-login varchar unique,
-password varchar,
-firstname varchar,
-surname varchar,
-email varchar unique,
-tg varchar unique,
-favBooks varchar,
-origlang varchar,
-langs varchar,
-location varchar,
-token varchar,
-role varchar,
-ts varchar);
+id_user serial primary key,
+login varchar(255) unique not null,
+password varchar(255) not null,
+firstname varchar(255),
+surname varchar(255),
+email varchar(255) unique not null,
+tg varchar(255) unique,
+fav_books varchar(255),
+location varchar(255),
+token varchar(255),
+role varchar(255),
+ts varchar(255)
+);
 
 create table downloads (
-id serial primary key,
-owner integer references users(id),
-leftbook integer references books(id),
-rightbook integer,
-download_time timestamp
+id_download serial primary key,
+id_user integer references users(id_user),
+id_left_book integer references books(id_book),
+id_right_book integer references books(id_book),
+download_time timestamp default now()
 );
 
 create table booklists (
-id serial primary key,
-title varchar,
-description varchar,
+id_booklist serial primary key,
+title varchar(255),
+description varchar(255),
 owner integer,
 is_visible boolean,
-add_time timestamp default now());
+add_time timestamp default now()
+);
 
 create table books_in_lists (
-booklist integer references booklists(id),
-book integer references books(id));
+id_booklist integer references booklists(id_booklist),
+id_book integer references books(id_book),
+primary key(id_booklist, id_book)
+);
