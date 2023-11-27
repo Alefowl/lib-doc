@@ -107,7 +107,8 @@ langs varchar,
 location varchar,
 token varchar,
 role varchar,
-ts varchar);
+ts varchar,
+is_verified boolean);
 
 create table downloads (
 id serial primary key,
