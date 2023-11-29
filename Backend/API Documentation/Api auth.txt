@@ -9,7 +9,6 @@ Body
     {
        "id": 0,
        "login": "login",
-       "password": "",
        "token": "MRuXS….",
        "role": "user",
        "ts": "2023-08-31T13:34:02.907231700""
@@ -20,10 +19,9 @@ Status code 500/   - ошибка сервера
 				
 				
 				
-2. POST /admin/insertBook - Добавление записи в Books
+2. POST /admin/book - Добавление записи в Books
 Body
       {
-        "id": 1,
         "metabook": 1,
         "language": 1,
         "title": "Вечные мгновения",
@@ -36,14 +34,14 @@ Body
       }
 Возвращает ответ  "1"
 
-Status code 200/Ok - успешно, запись в БД создана
+Status code 201/Created - успешно создано, если ресурс создан
 Status code 400/   - ошибка авторизации
 Status code 404/   - ошибка запроса
 Status code 500/   - ошибка сервера
 				
 				
 				
-3. POST /admin/insertNotes - Добавление записи в Notes
+3. POST /admin/note - Добавление записи в Notes
 Body
    [
      {
@@ -62,17 +60,16 @@ Body
 
 Возвращает ответ  "2"
 
-Status code 200/Ok - успешно, запись в БД создана
+Status code 201/Created - успешно создано, если ресурс создан
 Status code 400/   - ошибка авторизации
 Status code 404/   - ошибка запроса
 Status code 500/   - ошибка сервера
 								
 				
 				
-4. POST /admin/insertCreator - Добавление записи в Creators
+4. POST /admin/creator - Добавление записи в Creators
 Body
      {
-       "id": "4",
        "english_name": "Author Name",
        "russian_name": "Имя автора",
        "german_name": "Name des Autors",
@@ -85,7 +82,7 @@ Body
 
 Возвращает ответ  "1"
  
-Status code 200/Ok - успешно, запись в БД создана
+Status code 201/Created - успешно создано, если ресурс создан
 Status code 400/   - ошибка авторизации
 Status code 404/   - ошибка запроса
 Status code 500/   - ошибка сервера
@@ -93,28 +90,27 @@ Status code 500/   - ошибка сервера
 				
 				
 				
-5. POST /admin/insertMetabook - Добавление записи в Metabooks
+5. POST /admin/metabook - Добавление записи в Metabooks
 Body
     {
-      "id": "1",
-      "a uthor": "1",
-      "languag": "1",
+      "author": "1",
+      "language": "1",
       "title": "Meta Book Title",
       "create_date": "2000",
       "size": "500",
-      "owner": "1"
+      "owner": 1
     }
 
 Возвращает ответ  "1"
                                                        
-Status code 200/Ok - успешно, запись в БД создана
+Status code 201/Created - успешно создано, если ресурс создан
 Status code 400/   - ошибка авторизации
 Status code 404/   - ошибка запроса
 Status code 500/   - ошибка сервера
 			
 				
 
-6. POST /admin/insertChapter - Добавление записи в таблицу Chapters
+6. POST /admin/chapter - Добавление записи в таблицу Chapters
 Body
       {
          "id": "6",
@@ -125,7 +121,7 @@ Body
 
 Возвращает ответ  "1"
 
-Status code 200/Ok - успешно, запись из БД удалена
+Status code 201/Created - успешно создано, если ресурс создан
 Status code 400/   - ошибка авторизации
 Status code 404/   - ошибка запроса
 Status code 500/   - ошибка сервера
@@ -142,14 +138,14 @@ Body
 
 Возвращает ответ  "1"
 
-Status code 200/Ok - успешно, запись из БД удалена
+Status code 201/Created - успешно создано, если ресурс создан
 Status code 400/   - ошибка авторизации
 Status code 404/   - ошибка запроса
 Status code 500/   - ошибка сервера
 
 
 				
-8. DELETE /admin/deleteCreator/:creator - Удаление записи из таблицы Creators
+8. DELETE /admin/creator/:creatorId - Удаление записи из таблицы Creators
 Body  (нет)
 
 Возвращает ответ  "1"
@@ -161,7 +157,7 @@ Status code 500/   - ошибка сервера
                                                      
 				
 								
-9. DELETE /admin/deleteMetabook/:metabook - Удаление записи из таблицы Metabooks
+9. DELETE /admin/metabook/:metabookId - Удаление записи из таблицы Metabooks
 Body  (нет)
 
 Возвращает ответ  "1"
@@ -173,7 +169,7 @@ Status code 500/   - ошибка сервера
 
 			
 				
-10.DELETE /admin/deleteBook/:book - Удаление записи из таблицы Books
+10.DELETE /admin/book/:bookId - Удаление записи из таблицы Books
 Body  (нет)
 
 Возвращает ответ  "1"
@@ -213,7 +209,7 @@ Status code 500/   - ошибка сервера
 
 				
 				
-12. GET /admin/books - Получение записей из таблицы Creators
+12. GET /admin/books - Получение записей из таблицы Books
 Body  (нет)
 
 Возвращает ответ
