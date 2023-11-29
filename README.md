@@ -9,11 +9,10 @@ Alefowl.com: библиотека билингвальных книг
 - скачайте и установите Postman ( https://www.postman.com/downloads/ )
 - скачайте и установите Git ( https://git-scm.com/ )
 - скачайте и установите Java версии не ниже 1.8 ( https://www.java.com/ru/download/manual.jsp ) (проверка: java -version)
-- скачайте и установите Scala версии 2.13.11
-- скачайте и установите sbt версии 1.5.8 (проверка: sbt -version)
+- скачайте и установите Scala версии 2.13.11 (https://scala-lang.org/download/2.13.11.html)
+- скачайте и установите sbt версии 1.5.8 (проверка: sbt -version) (https://www.scala-sbt.org/download.html)
 - скачайте и установите Idea* ( https://www.jetbrains.com/ru-ru/idea/ )
-    * вместо Idea можно использовать Visual Studio Code, если это удобнее
-
+    * вместо Idea можно использовать Visual Studio Code, если это удобнее https://code.visualstudio.com/download
 ИНСТРУКЦИЯ ДЛЯ ЛОКАЛЬНОГО РАЗВЕРТЫВАНИЯ ПРОЕКТА
 
 СОЗДАНИЕ ЛОКАЛЬНОЙ БД
@@ -30,15 +29,14 @@ Alefowl.com: библиотека билингвальных книг
 		'Successfully run. Total query runtime: 246 msec. 3 rows affected'
 
 	3.4) на настоящем этапе вводимые данные могут быть любыми, если они удовлетворяют требованиям к типам данных атрибутов таблиц. Файл с данными для заполненеия таблиц должен появиться в ближайшем будущем
-
+	Простой туториал по SQL (https://metanit.com/sql/sqlserver/)
 РАЗВЕРТЫВАНИЕ LIB-VIEW
 1) в командной строке выполните команду git clone https://github.com/stakap/lib-view.git
 2) найдите в склонированном репозитории файл 'build.sbt'
 3) скачайте и установите язык Scala той версии, которая указана в строке 'scalaVersion :=' ( https://www.scala-lang.org )
-4) скачайте и установите SBT ( https://www.scala-sbt.org )
-5) найдите и откройте файл 'application.conf' в репозитории 'lib-view'
-6) найдите в файле строку 'db = { url = "jdbc:postgresql://localhost:5432/alefowl", login = "postgres", password = "postgres" }' и замените имеющиеся данные БД на данные от Вашей локальной БД (см. раздел 'СОЗДАНИЕ ЛОКАЛЬНОЙ БД')
-7) в терминале IDEA или в командной строке запустите lib-view, выполнив команду sbt run (для выполнения в терминале IDEA необходимо сначала открыть проект в IDEA)
+4) найдите и откройте файл 'application.conf' в репозитории 'lib-view'
+5) найдите в файле строку 'db = { url = "jdbc:postgresql://localhost:5432/alefowl", login = "postgres", password = "postgres" }' и замените имеющиеся данные БД на данные от Вашей локальной БД (см. раздел 'СОЗДАНИЕ ЛОКАЛЬНОЙ БД')
+6) в терминале IDEA или в командной строке запустите lib-view, выполнив команду sbt run (для выполнения в терминале IDEA необходимо сначала открыть проект в IDEA)
 
 	Если Вы все сделали верно, увидите нечто похожее:
 	[pool-1-thread-1] INFO  c.z.h.HikariDataSource - HikariPool-1 - Starting...
