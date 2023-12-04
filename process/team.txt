@@ -1,9 +1,8 @@
 Team.
-Product-owner: Леонид;
-scrum-master: Stanislav;
-analysts: Леонид, Аделя, Анастасия;
-developers: Stanislav, Дарья П., Александра Т., Дмитрий Л.;
-qa engineers: Даниил, Евгений, Александр, Евгений М., Дарья М., Александра, Татьяна, Анна, Жанна.
+Scrum-master: Stanislav;
+analysts: Анастасия;
+developers: Stanislav,  Леонид, Дарья П., Александра Т., Дмитрий Л.;
+qa engineers: Евгений, Александр, Евгений М., Дарья М., Александра, Татьяна, Анна.
 
 Repo owners:
 lib-front, lib-back, lib-view - Stanislav;
