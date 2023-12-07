@@ -1,0 +1,141 @@
+1.POST  /registration - Регистрация нового пользователя
+Body
+{
+  "login": "Test",
+  "password": "test",
+  "email": "test@gmail.com"
+}
+Status code - 201/ok 
+Тело ответа - 1
+
+2. POST /authentication - Авторизация
+Body
+{
+  "login": "Test",
+  "password": "test"
+}
+Status code - 200/ok
+Тело ответа "Token"
+
+3. POST api/add-a - Добавить автора
+Токен передается в Headers
+Body
+{
+  "id": 0,
+  "english_name": "Alexander Pushkin",
+  "russian_name": "Александр Пушкин",
+  "german_name": "Alexander Puschkin",
+  "french_name": "Alexandre Pouchkine",
+  "original_language": 2,
+  "birth_date": 1799,
+  "death_date": 1837,
+  "is_author": true,
+  "is_translator": false
+}
+Status code - 201/ok 
+Тело ответа - 1
+
+4.POST /api/add-mb - Добавить метакнигу
+Токен передается в Headers
+Body
+{
+  "id": 0,
+  "title": "Евгений Онегин",
+  "author": 1,
+  "size": 2,
+  "create_date": 1833,
+  "language": 2,
+  "owner": 0
+}
+Status code - 201/ok 
+Тело ответа - 1
+
+5.POST /api/add-b - Добавить книгу
+Токен передается в Headers
+Body
+{
+    "id": 0,
+    "metabook": 1,
+    "language": 2,
+    "title": "Евгений Онегин",
+    "author": "А.С.Пушкин",
+    "translation_date": 1833,
+    "translator": 0,
+    "is_ready": false,
+    "is_visible": false,
+    "owner": 0,
+    "is_deleted": false
+}
+Status code - 201/ok 
+Тело ответа - 1
+
+6.POST /api/add-t - Добавить текст в книгу
+Токен передается в Headers
+Body
+{"book": "1" ,
+"txt": "{Глава 1 | Очень странное занятие, добавление текста через Api { Глава 2 | Но все возможно, если хочется {"
+}
+Status code - 201/ok 
+Тело ответа - 1
+
+7. DELETE /api/book/1 - Удаление книги
+Токен передается в Headers
+Status code - 200/ok 
+Тело ответа - 1
+
+_ логин пользователя
+8.GET /_/private/"Token" - Отображает HTML страницу личного кабинета
+Status code - 200/ok 
+Тело ответа HTML
+
+9.GET /_/add-a/"Token" - Отображает HTML страницу добавления автора
+Status code - 200/ok 
+Тело ответа HTML
+
+10.GET /_/add-mb/"Token" - Отображает HTML страницу добавления метакниги
+Status code - 200/ok 
+Тело ответа HTML
+
+11.GET /_/add-b/"Token" - Отображает HTML страницу добавления книги
+Status code - 200/ok 
+Тело ответа HTML
+
+12.GET /_/add-t/"Token" - Отображает HTML страницу добавления текста книги
+Status code - 200/ok 
+Тело ответа HTML
+
+13.GET /_/1/"Token" - Отображает HTML страницу книги
+Status code - 200/ok 
+Тело ответа HTML
+
+14.GET /pdf/1/"Token" - Отправляет монокнигу в PDF на почту
+Status code - 200/ok 
+Тело ответа HTML
+
+15.GET /pdf/1/2/"Token" - Отправляет книгу на 2х языках в PDF на почту
+Status code - 200/ok 
+Тело ответа HTML
+
+16.GET /check - Состояние сервера
+Status code - 200/ok 
+Тело ответа - 1
+
+17.GET Root -  Отображает HTML Главной страницы
+Status code - 200/ok 
+Тело ответа HTML
+
+18.GET /auth/registration/ - Отображает HTML страницы регистрации
+Status code - 200/ok 
+Тело ответа HTML
+
+19.GET /auth/authentication - Отображает HTML cтраницы авторизации
+Status code - 200/ok 
+Тело ответа HTML
+
+20.GET /version - Актуальная версия
+Status code - 200/ok 
+Тело ответа - Версия стенда
+
+21.GET /1/2/1/ - Отображает HTML страницу книги в двух переводах
+Status code - 200/ok 
+Тело ответа HTML
