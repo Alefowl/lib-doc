@@ -129,3 +129,20 @@ add_time timestamp default now());
 create table books_in_lists (
 booklist integer references booklists(id),
 book integer references books(id));
+
+create table dictionaries (
+id serial primary key,
+title varchar,
+authors varchar,
+description varchar,
+from_lang smallint references Languages(id),
+to_lang smallint references Languages(id),
+year smallint,
+is_visible boolean);
+
+create table dict_articles (
+dictionary integer references dictionaries(id),
+id serial,
+from_word varchar,
+to_word varchar,
+primary key(dictionary, id));
