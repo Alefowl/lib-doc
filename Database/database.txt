@@ -32,7 +32,8 @@ title varchar,
 create_date smallint,
 size integer,
 owner integer,
-constraint unique_title_for_author unique (author, title));
+version smallint,
+constraint unique_title_for_author unique (author, title, version));
 
 create table Books (
 id integer primary key,
