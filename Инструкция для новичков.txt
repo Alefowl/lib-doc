@@ -1,0 +1,97 @@
+Alefowl.com: библиотека билингвальных книг
+
+ИНСТРУКЦИЯ ДЛЯ НОВИЧКОВ
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ПРАВИЛА ПРОЕКТА:
+- Минимальные требования (https://github.com/stakap/lib-doc/blob/master/process/minimum-minimorum.txt) [1]
+- Процесс разработки (https://github.com/stakap/lib-doc/blob/master/process/dev-process.txt)
+- Алгоритм добавления книги (https://github.com/stakap/lib-doc/blob/master/process/add-book-process.txt)
+- Уровни участия в проекте (https://github.com/stakap/lib-doc/blob/master/process/add-book-benefits.txt)
+
+ДОСТУПЫ:
+- зарегистрируйтесь на сайте (http://www.alefowl.com)
+- получить доступ GitHub [2]
+- получить статус Contributor на сайте [3]
+
+НЕОБХОДИМЫЕ ПРОГРАММЫ:
+- скачайте и установите базу данных PostgreSQL ( https://www.postgresql.org/)
+- скачайте и установите Postman (https://www.postman.com/downloads/)
+- скачайте и установите Git (https://git-scm.com/)
+- скачайте и установите Java версии не ниже 1.8 ( https://www.java.com/ru/download/manual.jsp) (проверка: java -version)
+- скачайте и установите Scala версии 2.13.11
+- скачайте и установите sbt версии 1.5.8 (проверка: sbt -version)
+- скачайте и установите Idea* (https://www.jetbrains.com/ru-ru/idea/)
+    * вместо Idea можно использовать Visual Studio Code
+
+КЛОНИРОВАНИЕ РЕПОЗИТОРИЯ И ПЕРВЫЙ PULL REQUEST:
+- https://www.youtube.com/watch?v=1upalKiDeEI [4]
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ИНСТРУКЦИЯ ДЛЯ ЛОКАЛЬНОГО РАЗВЕРТЫВАНИЯ ПРОЕКТА
+
+СОЗДАНИЕ ЛОКАЛЬНОЙ БД:
+1) Создайте в pgAdmin (PostgreSQL) новую БД под названием 'alefowl', postgres-postgres (эта БД должна иметь такую же структуру, как и удаленная БД).
+2) Создайте в БД таблицы (для создания таблиц ознакомьтесь с https://github.com/stakap/lib-doc/blob/master/Database/database.txt  или  https://github.com/stakap/lib-view/blob/master/src/sql/create.sql).
+3) Заполните таблицы languages, creators, metabooks, books, booklists, books_in_lists минимум двумя строками каждую. [5]
+
+
+КАК ДЕЛАТЬ SQL-запросы:
+1) Откройте query tool
+2) Введите запрос Insert Into (название таблицы, атрибуты таблицы), value (данные) [6]
+3) Нажмите Execute
+
+	Если запрос был написан верно, то введенные данные будут добавлены в таблицу, а вы увидите подобное сообщение:
+	'Successfully run. Total query runtime: 246 msec. 3 rows affected'
+
+- https://www.youtube.com/watch?v=h5wgbJiSy7Q [7]
+- https://www.youtube.com/playlist?list=PLBheEHDcG7-k1Y_Uy04Dj2ylWhcfSfqoF [8]
+
+
+РАЗВЕРТЫВАНИЕ LIB-VIEW
+1) В командной строке выполните команду git clone https://github.com/stakap/lib-view.git
+2) Найдите в склонированном репозитории файл 'build.sbt'
+3) Скачайте и установите язык Scala той версии, которая указана в строке 'scalaVersion :=' ( https://www.scala-lang.org ) 
+4) Скачайте и установите SBT ( https://www.scala-sbt.org )
+5) Найдите и откройте файл 'application.conf' [9] в репозитории 'lib-view' 
+6) В терминале IDEA или в командной строке запустите lib-view, выполнив команду sbt run (для выполнения в терминале IDEA необходимо сначала открыть проект в IDEA)
+
+	Если Вы все сделали верно, увидите нечто похожее:
+	[pool-1-thread-1] INFO  c.z.h.HikariDataSource - HikariPool-1 - Starting...
+	[pool-1-thread-1] INFO  c.z.h.HikariDataSource - HikariPool-1 - Start completed.
+	[io-compute-11] INFO  o.h.e.s.EmberServerBuilderCompanionPlatform - Ember-Server service bound to address: [::]:8080 [10]
+
+7) Перейдите на страницу проекта (http://localhost:80)
+
+	Вместо порта 80 можно задать другой порт [11]. Для этого:
+	8.1) создайте файл 'local.conf' в той же директории, где находится файл 'application.conf' (можно сделать в IDEA)
+	8.2) скопируйте содержимое файла 'application.conf' в файл 'local.conf'
+	8.3) измените порт в файле 'local.conf' в строке 'port ='
+	8.4) при переходе на страницу сайта измените номер порта на указанный в конфигурации в файле 'local.conf' ( http://localhost:'порт' )
+
+Когда будете готовы включиться в работу, а также по любым вопросам обращайтесь к наставнику или Product owner.
+Удачи!
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+[1] Обязательное присутствие на утренних созвонах.
+[2] Нужно для того, чтобы приступить к локальному развертыванию БД.
+[3] Нужно для загрузки своих книг на сайт. Получить можно, написав ссылку на свой профиль в GitHub.
+[4] Хорошее объяснение материала. Можно попробовать найти что-то подобное самостоятельно.
+[5] Нужно связать таблицы данными между собой без ошибок, то есть на настоящем этапе вводимые данные могут быть любыми, если они удовлетворяют требованиям к типам данных атрибутов таблиц. Файл с данными для заполненеия таблиц должен появиться в ближайшем будущем
+[6] INSERT INTO Languages (id, self_name, english, russian, german, french, spanish, italian ) VALUES ('1', 'russian', 'russian', 'русский', 'russisch', 'russe', 'ruso', 'russo')
+[7] Видео для наглядного понимания создания БД.
+[8] Плейлист на YouTube по PostgreSQL.
+[9] Файл 'application.conf' :
+host = "0.0.0.0" - не менять.
+port = 80 - можно поменять на другой порт [11].
+db = { url = "jdbc:postgresql://localhost:5432/alefowl", login = "postgres", password = "postgres" } - вероятно, что login = "postgres", а password Вы указывали при регистрации в PostgreSQL.
+sender = { login = "test", domain = "yandex.ru", password = "" } - login почта, domain не менять, password нужно сгенерировать в яндексе [12].
+smtp = { host = "smtp.yandex.ru", port = 465 }' - не менять.
+pdf = "/Users/alefowl/Desktop" - нужно указать любой путь для сохранения файлов.
+[10] Если появилась хотя бы одна ошибка, то сделано что-то неправильно. Вероятнее всего либо указаны неверные данные в [9], либо неверно заполнены и/или связаны между собой таблицы [5].
+[11] http://localhost:8080, а также можно это изменить в самом файле 'application.conf' в строке 'port ='.
+[12] https://help.reg.ru/support/pochta-i-servisy/google-workspace/nastroyka-pochtovykh-kliyentov-dlya-yandeks-pochtyy - ссылка на методичку для генерации пароля (устанавливаем нужные настройки).
+Теперь переходим по данной ссылке https://id.yandex.ru/ --> Еще --> Безопасность --> Пароли приложений --> Создать пароль приложения --> Почта IMAP, POP3, SMTP --> Вводим любое удобное имя пароля, нажимаем далее и получаем сгенерированный пароль.
